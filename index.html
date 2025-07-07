@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <style>
+        body {background-color: aqua;}
+        h1, h2 {text-align: center;}
+        #button {background-color: black;
+        color: white;
+    }
+    #anagrama {
+  border: 2px solid #333; 
+  border-radius: 5px;    
+  padding: 20px;          
+  max-width: 400px;       
+  margin: 20px auto;  
+  background-color: white;    
+  
+}
+
+#anagrama input[type="text"],
+#anagrama button {
+  width: 100%;            
+  padding: 10px;        
+  margin-top: 8px;        
+  border: 1px solid black; 
+  border-radius: 5px;     
+  box-sizing: border-box; 
+}
+
+#resultado {
+  border: 2px solid black; 
+  border-radius: 5px;    
+  padding: 20px;          
+  max-width: 400px;      
+  margin: 20px auto;
+  background-color: white;     
+       
+}
+    </style>
+    <title>Anagramas</title>
+</head>
+<body>
+    <h1>¿Las palabras son Anagramas?</h1>
+    <h2>Alberto Marín Giménez</h2>
+   <form id="anagrama">
+        <label for="frase1">Primera frase:</label><br>
+        <input type="text" id="frase1" name="frase1" required><br><br>
+        <label for="frase2">Segunda frase:</label><br>
+        <input type="text" id="frase2" name="frase2" required><br><br>
+        <button type="submit" id="button">¿Son anagramas?</button>
+    </form>
+    <p id="resultado"></p>
+
+    <script>
+        
+        function limpiarFrase(frase) {
+            return frase
+                .toLowerCase()
+                .replace(/\s+/g, '') 
+                .replace(/[^\w]/g, ''); 
+        }
+
+        function sonAnagramas(frase1, frase2) {
+            const f1 = limpiarFrase(frase1).split('').sort().join('');
+            const f2 = limpiarFrase(frase2).split('').sort().join('');
+            return f1 === f2;
+        }
+
+        document.getElementById('anagrama').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const frase1 = document.getElementById('frase1').value;
+            const frase2 = document.getElementById('frase2').value;
+
+            const resultado = sonAnagramas(frase1, frase2)
+                ? `Las palabras o frases SI son anagramas.`
+                : `Las palabras o frases NO son anagramas.`;
+
+            document.getElementById('resultado').textContent = `${resultado}`;
+        });
+        </script>
+</body>
+</html>
